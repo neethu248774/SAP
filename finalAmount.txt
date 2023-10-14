@@ -1,0 +1,22 @@
+PARAMETERS : p_iamt TYPE p DECIMALS 2,
+             p_pper TYPE p DECIMALS 2,
+             p_days TYPE i,
+             p_che AS CHECKBOX.
+DATA :   fin_amt TYPE p DECIMALS 2,
+          profit TYPE p DECIMALS 2.
+fin_amt = p_iamt.
+ IF p_che EQ 'X'.
+
+  DO p_days TIMES.
+    profit = fin_amt * p_pper / 100.
+    fin_amt = fin_amt + profit.
+    ENDDO.
+
+    ELSE.
+      profit = p_iamt * ( p_pper / 100 ) * ( p_days / 365 ) .
+      fin_amt = p_iamt + profit.
+      ENDIF.
+
+      WRITE :  'Initial Amount:',p_iamt,/
+               'Total Days:',p_days,/
+               'Total Amount:',fin_amt.
