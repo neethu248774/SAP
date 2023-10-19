@@ -1,0 +1,39 @@
+*&---------------------------------------------------------------------*
+*& Report ZNEETHU_FIRSTPROGRAM
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZNEETHU_FIRSTPROGRAM.
+DATA v1 TYPE c LENGTH 10.
+v1 = 'Neethu'.
+WRITE :'Name:',v1.
+DATA v2 TYPE i.
+v2 = '10.2'.
+WRITE :/'Integer:',v2.
+DATA v3 TYPE f.
+v3 = '10.5'.
+write :/'Float:',v3.
+DATA v4 TYPE p DECIMALS 2.
+v4 = '10.2'.
+WRITE :/'packed:',v4.
+data v5 type dats.
+v5 = '20231010'.
+write :/'Date:',v5.
+data v6 type t.
+v6 = '123410'.
+write :/'Time:',v6.
+data v7 type string.
+v7 = 'nizz'.
+write :/'String:',v7.
+data:v9 type d,
+       v8 type c length 10.
+v9 = '20231010'.
+write v9 to v8.
+write :/'Date:',v8.
+*types ty_name type c length 10.
+data d1 type zty_namel.
+d1 = 'nizzuuu'.
+write / d1.
+DATA v_dat type zty_h.
+v_dat = 'hjk'.
+write / v_dat.
