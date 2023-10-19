@@ -1,0 +1,28 @@
+*&---------------------------------------------------------------------*
+*& Report ZNEETHU_VIEW
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZNEETHU_VIEW.
+*DATA : it_plant type STANDARD TABLE OF zneeth_view,
+*      wa_plant LIKE LINE OF it_plant.
+*SELECT-Options s_num FOR wa_plant-matnr.
+*SELECT * from zneeth_view into table it_plant where matnr in s_num.
+*  Loop at it_plant into wa_plant.
+*    write : / wa_plant-matnr ,
+*               wa_plant-werks,
+*               wa_plant-name1.
+*    endloop.
+DATA : it_marc TYPE TABLE OF zview19,
+       wa_marc LIKE LINE OF it_marc.
+SELECT-OPTIONS S_NUM FOR wa_marc-matnr.
+select * from zview19 into table  it_marc where matnr in s_num.
+  loop at it_marc into wa_marc.
+    if wa_marc-werks eq 'JK77'.
+      FORMAT color col_positive.
+      endif.
+    write : / wa_marc-matnr,
+              wa_marc-werks,
+              wa_marc-name1.
+    format color off.
+    endloop.

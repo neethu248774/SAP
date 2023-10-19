@@ -1,0 +1,22 @@
+*&---------------------------------------------------------------------*
+*& Report ZNEETHU_STRUCTURE2
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZNEETHU_STRUCTURE2.
+types :BEGIN OF ty_zneethu_makt,
+  emp_id type zneethu_makt-emp_id,
+  name type zneethu_makt-name,
+  dept_id type zneethu_makt-dept_id,
+  end of ty_zneethu_makt.
+  data :st_zneethu_makt type ty_zneethu_makt,
+v_dept_desc type zneethu_depart-dept_desc.
+  write :/ 'emp id',
+  30 'name',50'desc'.
+parameters p_dept type zneethu_makt-dept_id.
+   select emp_id name from zneethu_makt into st_zneethu_makt where dept_id eq p_dept.
+     select single dept_desc from zneethu_depart into v_dept_desc where dept_id eq p_dept.
+     write :/ st_zneethu_makt-emp_id,
+     30 st_zneethu_makt-name,
+     50 v_dept_desc.
+     endselect.

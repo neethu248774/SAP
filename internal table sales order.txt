@@ -1,0 +1,64 @@
+*&---------------------------------------------------------------------*
+*& Report ZINTERNALTABLE_P
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZINTERNALTABLE_P.
+TYPES: BEGIN  OF ty_vbap,
+  posnr TYPE vbap-posnr,
+  pstyv TYPE vbap-pstyv,
+  arktx TYPE vbap-arktx,
+  kwmeng TYPE vbap-kwmeng,
+  zieme TYPE vbap-zieme,
+  netwr TYPE vbap-netwr,
+  END  OF ty_vbap.
+  TYPES :BEGIN OF ty_vbak,
+       vbeln TYPE vbak-vbeln,
+       audat TYPE vbak-audat,
+       netwr TYPE vbak-netwr,
+       kunnr type vbak-kunnr,
+END OF ty_vbak.
+TYPES : BEGIN OF ty_t006a,
+       msehi type t006a-msehi,
+       msehl type t006a-msehl,
+  END OF ty_t006a.
+  DATA : it_vbap TYPE table of ty_vbap,
+        wa_vbap LIKE LINE OF it_vbap,
+        it_vbak TYPE table of ty_vbak,
+        wa_vbak LIKE LINE OF it_vbak,
+        it_t006a TYPE TABLE OF ty_t006a,
+        wa_t006a like line of it_t006a,
+          v_name1 type kna1-name1,
+        v_msehl type t006a-msehl.
+
+
+
+
+PARAMETERS :p_docnum TYPE vbak-vbeln.
+*SELECT-OPTIONS s_num FOR wa_vbak-vbeln.
+ select single vbeln audat netwr kunnr from vbak into wa_vbak where vbeln eq p_docnum.
+   select single name1 from kna1 into v_name1 where kunnr eq wa_vbak-kunnr.
+    write :/ 'Document Number:',wa_vbak-vbeln,/
+    'Doc Date:',wa_vbak-audat,/
+    'Net Val:',wa_vbak-netwr,/
+    'Sold To Party:',v_name1.
+
+    WRITE :/ 'Item',
+       20 'Material',
+       35 'ItemDesc',
+60 'Order Qty' ,
+ 80 'UoM',
+ 100'NetVal'.
+
+SELECT posnr pstyv arktx kwmeng zieme netwr FROM vbap INTO TABLE it_vbap WHERE vbeln eq p_docnum.
+*select single msehl from t006a into v_msehl where spras eq 'E' and msehi eq st_vbap-zieme.
+  SELECT msehi msehl from t006a into table it_t006a FOR ALL ENTRIES IN it_vbap where spras eq 'E' and msehi eq it_vbap-zieme.
+LOOP at it_vbap into wa_vbap.
+  READ TABLE it_t006a into wa_t006a with key msehi = wa_vbap-zieme.
+   WRITE : / wa_vbap-posnr,
+            20 wa_vbap-pstyv,
+            35  wa_vbap-arktx,
+            50 wa_vbap-kwmeng,
+            80 wa_t006a-msehl,
+            90 wa_vbap-netwr.
+  ENDLOOP.

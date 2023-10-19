@@ -1,0 +1,58 @@
+*&---------------------------------------------------------------------*
+*& Report ZNEETHU_CONTROL
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZNEETHU_CONTROL.
+TYPES: BEGIN OF ty_makt,
+         matnr TYPE makt-matnr,
+         spras TYPE makt-spras,
+        maktx TYPE makt-maktx,
+      END OF ty_makt.
+*DATA : it_makt type standard table of ty_makt,
+*      wa_makt like line of it_makt.
+*wa_makt-matnr = 300.
+*wa_makt-spras = 'E'.
+*wa_makt-maktx = 'Book'.
+*append wa_makt to it_makt.
+*wa_makt-matnr = 200.
+*wa_makt-spras = 'E'.
+*wa_makt-maktx = 'Book'.
+*append wa_makt to it_makt.
+*wa_makt-matnr = 400.
+*wa_makt-spras = 'E'.
+*wa_makt-maktx = 'Book'.
+*append wa_makt to it_makt.
+*wa_makt-matnr = 800.
+*wa_makt-spras = 'E'.
+*wa_makt-maktx = 'Book'.
+*append wa_makt to it_makt.
+*sort it_makt by matnr.
+*loop at it_makt into wa_makt .
+*  write :/ wa_makt.
+*  endloop.
+     DATA: it_makt type hashed table of ty_makt with unique key matnr,
+           wa_makt like line of it_makt.
+
+wa_makt-matnr = 300.
+wa_makt-spras = 'E'.
+wa_makt-maktx = 'Book'.
+insert wa_makt into table it_makt.
+wa_makt-matnr = 200.
+wa_makt-spras = 'E'.
+wa_makt-maktx = 'Book'.
+insert wa_makt into table it_makt.
+wa_makt-matnr = 400.
+wa_makt-spras = 'E'.
+wa_makt-maktx = 'Book'.
+insert wa_makt into table it_makt.
+wa_makt-matnr = 800.
+wa_makt-spras = 'E'.
+wa_makt-maktx = 'Book'.
+insert wa_makt into table it_makt.
+sort it_makt by matnr.
+read table it_makt into wa_makt with key matnr = 400 BINARY SEARCH  .
+write :/ wa_makt.
+*loop at it_makt into wa_makt  .
+*  write :/ wa_makt.
+*  endloop.

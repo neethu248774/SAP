@@ -1,0 +1,50 @@
+*&---------------------------------------------------------------------*
+*& Report ZNEETHU_SELECT_OPTIONS
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZNEETHU_SELECT_OPTIONS.
+
+
+*TYPES : BEGIN OF ty_marc,
+*  matnr type marc-matnr,
+*  werks type marc-werks,
+*  END OF ty_marc.
+*  TYPES :BEGIN OF ty_makt,
+*    matnr type makt-matnr,
+*    spras type makt-spras,
+*    maktx TYPE makt-maktx,
+*    END OF ty_makt.
+*  DATA : it_marc TYPE TABLE OF ty_marc,
+*          wa_marc LIKE LINE OF it_marc,
+*          it_makt TYPE TABLE OF ty_makt,
+*          wa_makt LIKE LINE OF it_makt.
+*  PARAMETERS : p_werks type marc-werks.
+*SELECT-OPTIONS s_werks for wa_marc-werks.
+*  SELECT matnr werks from marc INTO TABLE it_marc WHERE werks IN s_werks.
+*    SELECT matnr spras maktx from makt INTO TABLE it_makt FOR ALL ENTRIES IN it_marc WHERE matnr EQ it_marc-matnr AND spras eq sy-langu.
+*
+*    LOOP AT it_marc into wa_marc .
+*      READ TABLE it_makt into wa_makt WITH KEY matnr = wa_marc-matnr spras = sy-langu.
+*      write : / wa_marc-werks,wa_marc-matnr, wa_makt-maktx.
+*      ENDLOOP.
+TYPES : BEGIN OF ty_marc,
+     matnr type marc-matnr,
+  werks type marc-werks,
+       END OF ty_marc.
+ TYPES : BEGIN OF ty_makt,
+   matnr TYPE makt-matnr,
+   spras TYPE makt-spras,
+   maktx TYPE makt-maktx,
+   END OF ty_makt.
+       DATA : it_marc TYPE TABLE OF ty_marc,
+             wa_marc LIKE LINE OF it_marc,
+             it_makt TYPE TABLE OF ty_makt,
+             wa_makt LIKE LINE OF it_makt.
+       SELECT-OPTIONS s_werks FOR wa_marc-werks.
+       SELECT matnr werks FROM marc into table it_marc where werks in s_werks.
+         SELECT matnr spras maktx from makt into table it_makt FOR ALL ENTRIES IN it_marc  where matnr eq it_marc-matnr.
+         LOOP AT it_marc INTO wa_marc.
+           READ TABLE it_makt into wa_makt with key matnr = wa_marc-matnr.
+           WRITE : / wa_marc-matnr, wa_marc-werks,wa_makt-maktx.
+           ENDLOOP.

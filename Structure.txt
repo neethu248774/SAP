@@ -1,0 +1,66 @@
+*&---------------------------------------------------------------------*
+*& Report ZNEETHU_STRUCTURE
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZNEETHU_STRUCTURE.
+*DATA d2 type makt-matnr.
+*DATA :BEGIN OF d1,
+*  matnr type makt-matnr,
+*  spras type makt-spras,
+*  maktx type makt-maktx,
+*  maxtg type makt-maktg,
+*  END OF d1.
+*  d2 = '32'.
+*  write d2.
+*  d1-matnr = '33'.
+**  write d1-matnr.
+*  d1-matnr = '34'.
+*  write d1-matnr.
+**  using type
+*  TYPES :BEGIN OF ty_type,
+*    matnr type makt-matnr,
+*    spras type makt-spras,
+*    maktx type makt-maktx,
+*    END OF ty_type.
+*    DATA d3 type ty_type.
+*    d3-matnr = '22'.
+*    write d3-matnr.
+*types : begin of ty_zneethu_makt,
+*  emp_id type zneethu_makt-emp_id,
+*  name type zneethu_makt-name,
+*  salary type zneethu_makt-salary,
+*  dept_id type zneethu_makt-dept_id,
+*
+*  end of ty_zneethu_makt.
+*  data st_zneethu_makt type ty_zneethu_makt.
+*
+*
+*parameters p_id type zneethu_makt-emp_id.
+*select emp_id name salary dept_id  from zneethu_makt  into st_zneethu_makt where emp_id eq p_id.
+*  data v_dept_desc type zneethu_depart-dept_desc.
+*  select single dept_desc from zneethu_depart into v_dept_desc where dept_id eq st_zneethu_makt-dept_id.
+*  write : st_zneethu_makt-name,st_zneethu_makt-salary,st_zneethu_makt-dept_id,v_dept_desc.
+*  endselect.
+TYPES :BEGIN OF ty_zneethu_makt,
+  emp_id TYPE zneethu_makt-emp_id,
+  name TYPE zneethu_makt-name,
+  salary TYPE zneethu_makt-salary,
+  dept_id TYPE zneethu_makt-dept_id,
+  END OF ty_zneethu_makt.
+  DATA st_zneethu_makt type ty_zneethu_makt.
+  DATA v_d_desc type zneethu_depart-dept_desc.
+  write : / 'emp id' ,
+   10 'name' ,
+   20'salary' ,
+   20'dept id' ,
+   30'desc'.
+PARAMETERS p_id TYPE zneethu_makt-emp_id.
+SELECT emp_id name salary dept_id  from zneethu_makt into st_zneethu_makt where emp_id eq p_id.
+  select single dept_desc from zneethu_depart into V_d_desc where dept_id eq st_zneethu_makt-dept_id.
+  write : / st_zneethu_makt-emp_id,
+  10 st_zneethu_makt-name,
+  20 st_zneethu_makt-salary,
+  20 st_zneethu_makt-emp_id,
+  30 v_d_desc.
+  ENDSELECT.
