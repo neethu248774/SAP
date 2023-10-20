@@ -1,0 +1,34 @@
+*&---------------------------------------------------------------------*
+*& Report ZNEETHU_MESSAGES
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZNEETHU_MESSAGES MESSAGE-ID ZNEETHU_MESS.
+
+
+DATA : it_marc TYPE STANDARD TABLE OF  zneeth_view ,
+       wa_marc LIKE LINE OF it_marc.
+SELECT-OPTIONS S_NUM FOR wa_marc-matnr.
+*parameters p_werks type marc-werks.
+AT SELECTION-SCREEN.
+select  * from zneeth_view into table  it_marc where matnr in s_num.
+  IF sy-subrc IS NOT INITIAL.
+*    MESSAGE :'Please input a valid field' TYPE 'X'.
+*    MESSAGE text-001 TYPE 'E'.
+*    MESSAGE e000(ZNEETHU_MESS).
+    MESSAGE e000.
+
+  ENDIF.
+  START-OF-SELECTION.
+  loop at it_marc into wa_marc.
+if wa_marc-werks eq 'JK77'.
+      FORMAT color col_positive.
+
+      endif.
+
+    write : / wa_marc-matnr,
+              wa_marc-werks,
+              wa_marc-name1.
+
+    format color off.
+    endloop.
