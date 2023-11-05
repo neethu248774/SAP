@@ -1,0 +1,72 @@
+*&---------------------------------------------------------------------*
+*& Report ZNEETHU_FILE_UPLOAD
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT zneethu_file_upload.
+TYPES : BEGIN OF ty_file,
+          name   TYPE c LENGTH 20,
+          dept   TYPE c LENGTH 20,
+          emp_id TYPE c LENGTH 10,
+        END OF ty_file.
+DATA : it_file TYPE STANDARD TABLE OF ty_file,
+       wa_file LIKE LINE OF it_file.
+PARAMETERS p_file TYPE ibipparms-path.
+
+AT SELECTION-SCREEN ON VALUE-REQUEST FOR p_file.
+  CALL FUNCTION 'F4_FILENAME'
+    EXPORTING
+      program_name  = syst-cprog
+      dynpro_number = syst-dynnr
+      field_name    = 'P_FILE'
+    IMPORTING
+      file_name     = p_file.
+
+START-OF-SELECTION.
+  DATA v_file TYPE string.
+  v_file = p_file.
+  CALL FUNCTION 'GUI_UPLOAD'
+    EXPORTING
+      filename                = v_file
+      filetype                = 'ASC'
+      has_field_separator     = 'X'
+*     HEADER_LENGTH           = 0
+*     READ_BY_LINE            = 'X'
+*     DAT_MODE                = ' '
+*     CODEPAGE                = ' '
+*     IGNORE_CERR             = ABAP_TRUE
+*     REPLACEMENT             = '#'
+*     CHECK_BOM               = ' '
+*     VIRUS_SCAN_PROFILE      =
+*     NO_AUTH_CHECK           = ' '
+*   IMPORTING
+*     FILELENGTH              =
+*     HEADER                  =
+    TABLES
+      data_tab                = it_file
+*   CHANGING
+*     ISSCANPERFORMED         = ' '
+    EXCEPTIONS
+      file_open_error         = 1
+      file_read_error         = 2
+      no_batch                = 3
+      gui_refuse_filetransfer = 4
+      invalid_type            = 5
+      no_authority            = 6
+      unknown_error           = 7
+      bad_data_format         = 8
+      header_not_allowed      = 9
+      separator_not_allowed   = 10
+      header_too_long         = 11
+      unknown_dp_error        = 12
+      access_denied           = 13
+      dp_out_of_memory        = 14
+      disk_full               = 15
+      dp_timeout              = 16
+      OTHERS                  = 17.
+  IF sy-subrc <> 0.
+* Implement suitable error handling here
+  ENDIF.
+  LOOP AT it_file INTO wa_file.
+    WRITE : / wa_file-emp_id, wa_file-name, wa_file-dept.
+  ENDLOOP.

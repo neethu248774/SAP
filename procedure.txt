@@ -1,0 +1,48 @@
+*&---------------------------------------------------------------------*
+*& Report ZNEETHU_PROCEDURE
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZNEETHU_PROCEDURE.
+*DATA date type sy-datum.
+**LOAD-OF-PROGRAM.
+*INITIALIZATION.
+*date = sy-datum.
+*START-OF-SELECTION.
+*PERFORM display.
+**&---------------------------------------------------------------------*
+**& Form display
+**&---------------------------------------------------------------------*
+**& text
+**&---------------------------------------------------------------------*
+**& -->  p1        text
+**& <--  p2        text
+**&---------------------------------------------------------------------*
+*FORM display .
+*write : date.
+*ENDFORM.
+*DATA : v_date TYPE sy-datum.
+*IMPORT v_date FROM MEMORY id 'NEET'.
+*GET PARAMETER ID 'NEET' field v_date.
+*write v_date.
+*WRITE 'Haiiii'.
+*DATA v_date TYPE sy-datum.
+*LOAD-OF-PROGRAM.
+*v_date = sy-datum.
+*START-OF-SELECTION.
+*PERFORM display.
+*&---------------------------------------------------------------------*
+*& Form display
+*&---------------------------------------------------------------------*
+*& text
+*&---------------------------------------------------------------------*
+*& -->  p1        text
+*& <--  p2        text
+*&---------------------------------------------------------------------*
+*FORM display.
+*write v_date.
+*ENDFORM.
+DATA v_date TYPE sy-datum.
+*import v_date from memory id 'NEET'.
+get PARAMETER ID 'NEET' field v_date.
+write v_date.

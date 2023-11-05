@@ -1,0 +1,27 @@
+*&---------------------------------------------------------------------*
+*& Report ZNEETHU_PROCEDURECALL
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZNEETHU_PROCEDURECALL.
+*perform display in program ZNEETHU_PROCEDURE.
+*SUBMIT ZNEETHU_PROCEDURE.
+*DATA : v_date TYPE sy-datum.
+*v_date = sy-datum.
+*write v_date.
+*AT LINE-SELECTION.
+*  export v_date TO MEMORY id 'NEET'.
+*  set PARAMETER ID 'NEET' field v_date.
+*DATA : v_date TYPE sy-datum.
+*v_date = sy-datum.
+*write v_date.
+*AT LINE-SELECTION.
+*SUBMIT ZNEETHU_PROCEDURE AND RETURN.
+*WRITE 'END'.
+*PERFORM display IN PROGRAM ZNEETHU_PROCEDURE.
+*submit ZNEETHU_PROCEDURE.
+DATA v_date TYPE sy-datum.
+v_date = sy-datum.
+write v_date.
+SET PARAMETER ID 'NEET' FIELD v_date.
+*EXPORT v_date TO MEMORY id 'NEET'.
