@@ -1,0 +1,22 @@
+*&---------------------------------------------------------------------*
+*& Report ZNEETHU_EVENTS
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZNEETHU_EVENTS.
+class cl DEFINITION.
+  public SECTION.
+  METHODS catch_double_click FOR EVENT RAISE_DOUBLE_CLICK of ZCL_NEETHU_EVENTS.
+  ENDCLASS.
+  class cl IMPLEMENTATION.
+    METHOD catch_double_click.
+      call TRANSACTION 'MM03'.
+      ENDMETHOD.
+    ENDCLASS.
+    DATA o_gl TYPE REF TO zcl_neethu_events.
+    DATA o_events TYPE REF TO cl.
+    START-OF-SELECTION.
+    create object o_gl.
+    create object o_events.
+    set handler o_events->catch_double_click FOR o_gl.
+    o_gl->double_click( ).

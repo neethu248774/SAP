@@ -1,0 +1,12 @@
+*&---------------------------------------------------------------------*
+*& Report ZNEETHU_IF_INHERITANCE
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZNEETHU_IF_INHERITANCE.
+DATA : o_bus TYPE REF TO zcl_neethu_bus.
+DATA o_truck TYPE REF TO zcl_neethu_truck.
+DATA o_acc TYPE REF TO zcl_neethu_account.
+CREATE OBJECT : o_bus,o_truck,o_acc.
+o_acc->calculate_fuel_cost( ovehicle = o_truck ).
+o_acc->calculate_fuel_cost( ovehicle = o_bus ).

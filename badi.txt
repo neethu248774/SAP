@@ -1,0 +1,13 @@
+*&---------------------------------------------------------------------*
+*& Report ZNEETHU_BADI_USAGE
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZNEETHU_BADI_USAGE.
+DATA o_badi TYPE REF TO ZNEETHU_BADI_DEFNI.
+PARAMETERS p_ctry TYPE c LENGTH 2.
+GET BADI o_badi
+FILTERS
+country = p_ctry.
+CALL BADI o_badi->calculate_gst.
+WRITE 'END'.

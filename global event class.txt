@@ -1,0 +1,12 @@
+*&---------------------------------------------------------------------*
+*& Report ZNEETHU_EVEN
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZNEETHU_EVEN.
+DATA o_gl TYPE REF TO zcl_neethu_events.
+DATA o_event TYPE REF TO ZCL_NEET_EVENT1.
+create OBJECT o_gl.
+create OBJECT o_event.
+set HANDLER o_event->emp_name for o_gl.
+o_gl->double_click( ).

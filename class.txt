@@ -1,0 +1,41 @@
+*&---------------------------------------------------------------------*
+*& Report ZNEETHU_CLASS
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZNEETHU_CLASS.
+*CLASS lcl_counter DEFINITION.
+*  PUBLIC SECTION.
+*  DATA count TYPE i.
+*  METHODS next_number EXPORTING number TYPE i.
+*  ENDCLASS.
+*  CLASS lcl_counter IMPLEMENTATION.
+*    METHOD next_number.
+*      number = count + 1.
+*      count = number.
+*      ENDMETHOD.
+*  ENDCLASS.
+  DATA v_doc TYPE i.
+  DATA v_tag TYPE i.
+  DATA o_doc TYPE REF TO zcl_neethu_counter.
+  DATA o_tag TYPE REF TO zcl_neethu_counter.
+  START-OF-SELECTION.
+  CREATE OBJECT o_doc.
+  CREATE OBJECT o_tag.
+  o_doc->count = 10.
+  o_doc->next_number(
+    IMPORTING
+      number = v_doc
+  ).
+  o_tag->next_number(
+    IMPORTING
+      number = v_tag
+  ).
+  o_doc->next_number(
+    IMPORTING
+      number = v_doc
+  ).
+  o_doc->next_number(
+    IMPORTING
+      number = v_doc
+  ).

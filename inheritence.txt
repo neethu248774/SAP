@@ -1,0 +1,14 @@
+*&---------------------------------------------------------------------*
+*& Report ZNEETHU_INHERITANCE
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZNEETHU_INHERITANCE.
+DATA : o_super TYPE REF TO zcl_neethu_super,
+      o_sub TYPE REF TO zcl_neethu_sub.
+create OBJECT : o_super,o_sub.
+o_super->get_mileage( ).
+o_sub->get_mileage( ).
+o_sub->get_seats( ).
+o_super = o_sub.
+o_super->get_mileage( ).
